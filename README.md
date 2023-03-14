@@ -1,2 +1,2 @@
 # ecs-task-definition-resource
-Resource for Concourse CI that manipulates task definitions for AWS ECS
+Concourse CI resource for pushing your task definitions to AWS ECS
