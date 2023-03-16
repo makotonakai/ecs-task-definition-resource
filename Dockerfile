@@ -2,9 +2,9 @@ FROM golang:1.20 as builder
 
 COPY . /app
 WORKDIR /app
-ENV CGO_ENABLED 0
-RUN go get -d ./...
+RUN go mod download
 
+ENV CGO_ENABLED 0
 RUN go build -o /assert/in ./src/in
 RUN go build -o /assets/out ./src/out
 RUN go build -o /assets/check ./src/check
