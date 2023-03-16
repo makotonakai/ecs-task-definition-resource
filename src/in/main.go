@@ -15,7 +15,7 @@ type Request struct {
 }
 
 type Response struct {
-	Version resource.Version `json:"version"`
+	Version []resource.Version `json:"version"`
 	MetaData []resource.Metadata `json:"metadata"`
 }
 
@@ -58,8 +58,12 @@ func main() {
 	encoder.Encode(source.TaskDefinition)
 
 	response := Response{}
-	response.Version = resource.Version{Date: time.Now().String()}
-	response.MetaData = []resource.Metadata{}
+
+	version := resource.Version{Date: time.Now().String()}
+	response.Version = append(response.Version, version)
+
+	metadata := resource.Metadata{Name: "key", Value: "value"}
+	response.MetaData = append(response.MetaData, metadata)
 
 	json.NewEncoder(os.Stdout).Encode(response)
 }
