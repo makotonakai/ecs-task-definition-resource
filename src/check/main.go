@@ -13,7 +13,9 @@ type Request struct {
 	Version resource.Version `json:"version"`
 }
 
-type Response []resource.Version
+type Response struct {
+	Version []resource.Version `json:"version"`
+}
 
 func main() {
 	
@@ -29,7 +31,7 @@ func main() {
 	fmt.Fprintf(os.Stderr, "source: %v\n", request.Source)
 
 	response := Response{}
-	response = append(response, resource.Version{Date: time.Now().String()})
+	response.Version = append(response.Version, resource.Version{Date: time.Now().String()})
 
 	json.NewEncoder(os.Stdout).Encode(response)
 }
