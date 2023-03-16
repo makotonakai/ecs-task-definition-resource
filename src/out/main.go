@@ -4,10 +4,10 @@ import (
 	"os"
 	"fmt"
 	"time"
-	"encoding/gob"
 	"encoding/json"
-	"github.com/makotonakai/ecs-task-definition-resource/model"
+
 	"github.com/makotonakai/ecs-task-definition-resource/resource"
+	"github.com/makotonakai/ecs-task-definition-resource/src/common"
 )
 
 type Request struct {
@@ -36,53 +36,23 @@ func main() {
 	awsAccessKeyIdFile := fmt.Sprintf("%s/aws_access_key_id", dest)
 	awsSecretAccessKeyFile := fmt.Sprintf("%s/aws_secret_access_key", dest)
 	awsRegionFile := fmt.Sprintf("%s/aws_region", dest)
+	taskDefinisionFile := fmt.Sprintf("%s/task_definition_json", dest)
 
 	// task_definition.jsonの構造体をバイト列に変換してファイルに書き込む
-	awsAccessKeyId := GetStringFromFile(awsAccessKeyIdFile)
-	awsSecretAccessKey := GetStringFromFile(awsSecretAccessKeyFile)
-	awsRegion := GetStringFromFile(awsRegionFile)
+	awsAccessKeyId := common.GetStringFromFile(awsAccessKeyIdFile)
+	awsSecretAccessKey := common.GetStringFromFile(awsSecretAccessKeyFile)
+	awsRegion := common.GetStringFromFile(awsRegionFile)
+	taskDefinision := common.GetTaskDefinitionFromFile(taskDefinisionFile)
 
 	fmt.Fprintf(os.Stderr, "AWS Access Key ID: %v\n", awsAccessKeyId)
 	fmt.Fprintf(os.Stderr, "AWS Secret Access Key: %v\n", awsSecretAccessKey)
 	fmt.Fprintf(os.Stderr, "AWS Region: %v\n", awsRegion)
+	fmt.Fprintf(os.Stderr, "Task Definition: %v\n", taskDefinision)
 
 	response := Response{}
 	response.Version = resource.Version{Date: time.Now().String()}
 	response.MetaData = []resource.Metadata{}
 
 	json.NewEncoder(os.Stdout).Encode(response)
-}
-
-func GetStringFromFile(fileName string) string {
-	fp, err := os.Open(fileName)
-	if err != nil {
-			panic(err)
-	}
-	defer fp.Close()
-
-	buf := make([]byte, 1024)
-	for {
-			n, err := fp.Read(buf)
-			if n == 0 {
-					break
-			}
-			if err != nil {
-					panic(err)
-			}
-	}
-	return string(buf)
-}
-
-func GetTaskDefinitionFromFile(fileName string) model.TaskDefinision {
-	fp, err := os.Open(fileName)
-	if err != nil {
-			panic(err)
-	}
-	defer fp.Close()
-	
-	var taskDefinition model.TaskDefinision
-	decoder := gob.NewDecoder(fp)
-	decoder.Decode(&taskDefinition)
-	return taskDefinition
 }
 
