@@ -1,6 +1,7 @@
 package main
 
 import (
+	"os"
 	"encoding/json"
 	"github.com/makotonakai/ecs-task-definition-resource/resource"
 )
