@@ -13,7 +13,7 @@ jobs:
     plan:
       - put: task-definition
         params:
-          aws_access_key_id: ((aws_access_key_id))
-          aws_secret_access_key: ((aws_secret_access_key))
-          aws_region: ((aws_region))
-          task_definition.json: ((task_definition.json))
+          aws_access_key_id: (( aws_access_key_id ))
+          aws_secret_access_key: (( aws_secret_access_key ))
+          aws_region: (( aws_region))
+          task_definition.json: (( task_definition.json ))
