@@ -3,12 +3,14 @@ package main
 import (
 	"os"
 	"fmt"
+	"time"
 	"encoding/json"
 
 	"github.com/makotonakai/ecs-task-definition-resource/resource"
 )
 
 type Request struct {
+	Version string `json:"string"`
 	Params  resource.Params  `json:"params"`
 }
 
@@ -34,7 +36,7 @@ func main() {
 	fmt.Fprintf(os.Stderr, "Task Definition: %v\n", params.TaskDefinition)
 
 	response := Response{}
-	response.Version = resource.Version{Ref: "static"}
+	response.Version = resource.Version{Ref: time.Now().String()}
 
 	json.NewEncoder(os.Stdout).Encode(response)
 }
