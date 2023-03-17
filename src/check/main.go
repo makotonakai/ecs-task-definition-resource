@@ -14,6 +14,7 @@ type Response struct {
 func main() {
 	
 	response := Response{}
+	response.Version = append(response.Version, resource.Version{Ref: ""})
 	json.NewEncoder(os.Stdout).Encode(response)
 
 }

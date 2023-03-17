@@ -14,7 +14,7 @@ func main() {
 
 	response := Response{}
 
-	version := resource.Version{Ref: ""}
+	version := resource.Version{Ref: "static"}
 	response.Version = version
 
 	json.NewEncoder(os.Stdout).Encode(response)
