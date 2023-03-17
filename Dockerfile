@@ -11,7 +11,13 @@ RUN go build -o /assets/check ./src/check
 
 FROM alpine:edge AS resource
 RUN apk add --no-cache bash
-COPY --from=builder assets/ /opt/resource/
-RUN chmod +x /opt/resource/*
+
+COPY --from=builder assets/in /opt/resource/in
+COPY --from=builder assets/out /opt/resource/out
+COPY --from=builder assets/check /opt/resource/check
+
+RUN chmod +x /opt/resource/in
+RUN chmod +x /opt/resource/out
+RUN chmod +x /opt/resource/check
 
 FROM resource
