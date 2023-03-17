@@ -16,7 +16,6 @@ import (
 )
 
 type Request struct {
-	Version string `json:"string"`
 	Params  resource.Params  `json:"params"`
 }
 
