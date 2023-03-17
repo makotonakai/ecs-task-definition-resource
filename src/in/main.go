@@ -8,18 +8,14 @@ import (
 
 type Response struct {
 	Version resource.Version `json:"version"`
-	MetaData []resource.Metadata `json:"metadata"`
 }
 
 func main() {
 
 	response := Response{}
 
-	version := resource.Version{Ref: "static"}
+	version := resource.Version{Ref: ""}
 	response.Version = version
-
-	metadata := resource.Metadata{Name: "key", Value: "value"}
-	response.MetaData = append(response.MetaData, metadata)
 
 	json.NewEncoder(os.Stdout).Encode(response)
 	
