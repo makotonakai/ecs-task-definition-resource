@@ -1,5 +1,5 @@
 package resource
 
 type Version struct {
-	Date string `json:"date"`
+	Ref string `json:"ref"`
 }
