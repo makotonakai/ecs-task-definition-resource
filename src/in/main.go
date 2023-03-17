@@ -2,9 +2,6 @@ package main
 
 import (
 	"os"
-	"fmt"
-	"time"
-	"encoding/gob"
 	"encoding/json"
 	"github.com/makotonakai/ecs-task-definition-resource/resource"
 )
