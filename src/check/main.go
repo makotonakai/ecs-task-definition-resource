@@ -9,13 +9,13 @@ import (
 
 
 type Response struct {
-	Version []resource.Version `json:"version"`
+	Version resource.Version `json:"version"`
 }
 
 func main() {
 	
 	response := Response{}
-	response.Version = append(response.Version, resource.Version{Ref: time.Now().String()})
+	response.Version = resource.Version{Ref: time.Now().String()}
 	json.NewEncoder(os.Stdout).Encode(response)
 
 }
