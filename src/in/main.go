@@ -8,7 +8,7 @@ import (
 )
 
 type Request struct {
-	Version string `json:"version"`
+	Version resource.Version `json:"version"`
 }
 
 
@@ -28,7 +28,7 @@ func main() {
 	}
 
 	response := Response{}
-	response.Version = resource.Version{Ref: request.Version}
+	response.Version = resource.Version{Ref: request.Version.Ref}
 
 	json.NewEncoder(os.Stdout).Encode(response)
 	
