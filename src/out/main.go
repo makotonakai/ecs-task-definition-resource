@@ -3,6 +3,7 @@ package main
 import (
 	"os"
 	"fmt"
+	"log"
 	"time"
 	"encoding/json"
 
@@ -96,6 +97,9 @@ func main() {
 	response := Response{}
 	response.Version = resource.Version{Ref: time.Now().String()}
 
-	json.NewEncoder(os.Stdout).Encode(response)
+	err = json.NewEncoder(os.Stdout).Encode(response)
+	if err != nil {
+		log.Fatalln(err)
+	}
 }
 
