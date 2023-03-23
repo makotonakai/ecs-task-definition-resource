@@ -2,7 +2,6 @@ package main
 
 import (
 	"os"
-	"fmt"
 	"encoding/json"
 	"github.com/makotonakai/ecs-task-definition-resource/resource"
 )
@@ -18,17 +17,17 @@ type Response struct {
 
 func main() {
 
-	var request Request
-	decoder := json.NewDecoder(os.Stdin)
-	err := decoder.Decode(&request)
-	if err != nil {
-			fmt.Fprintf(os.Stderr, "failed to decode: %s\n", err.Error())
-			os.Exit(1)
-			return
-	}
+	// var request Request
+	// decoder := json.NewDecoder(os.Stdin)
+	// err := decoder.Decode(&request)
+	// if err != nil {
+	// 		fmt.Fprintf(os.Stderr, "failed to decode: %s\n", err.Error())
+	// 		os.Exit(1)
+	// 		return
+	// }
 
 	response := Response{}
-	response.Version = resource.Version{Ref: request.Version.Ref}
+	response.Version = resource.Version{Ref: "static"}
 
 	json.NewEncoder(os.Stdout).Encode(response)
 	
