@@ -56,19 +56,44 @@ func main() {
 	input := &ecs.RegisterTaskDefinitionInput{
 			ContainerDefinitions: []*ecs.ContainerDefinition{
 					{
-							Command: []*string{
-									aws.String("sleep"),
-									aws.String("360"),
+							Cpu:       aws.Int64(taskDefinition.ContainerDefinitions[0].Cpu),
+							Essential: aws.Bool(taskDefinition.ContainerDefinitions[0].Essential),
+							Image:     aws.String(taskDefinition.ContainerDefinitions[0].Image),
+							Name:      aws.String(taskDefinition.ContainerDefinitions[0].Name),
+							HealthCheck: &ecs.HealthCheck{
+								Command: []*string{
+									aws.String("CMD-SHELL"),
+									aws.String("curl -f http://localhost:1991/ping || exit 1"),
+								},
+								Interval: aws.Int64(taskDefinition.ContainerDefinitions[0].HealthCheck.Interval),
+								Retries: aws.Int64(taskDefinition.ContainerDefinitions[0].HealthCheck.Retries),
+								StartPeriod: aws.Int64(taskDefinition.ContainerDefinitions[0].HealthCheck.StartPeriod),
+								Timeout: aws.Int64(taskDefinition.ContainerDefinitions[0].HealthCheck.Timeout),
 							},
-							Cpu:       aws.Int64(10),
-							Essential: aws.Bool(true),
-							Image:     aws.String("busybox"),
-							Memory:    aws.Int64(10),
-							Name:      aws.String("sleep"),
+							LogConfiguration: &ecs.LogConfiguration{
+								LogDriver: aws.String(taskDefinition.ContainerDefinitions[0].LogConfiguration.LogDriver),
+								Options: map[string]*string{
+									"awslogs-create-group": aws.String(taskDefinition.ContainerDefinitions[0].LogConfiguration.Options.AWSLogsCreateGroup),
+									"awslogs-group": aws.String(taskDefinition.ContainerDefinitions[0].LogConfiguration.Options.AWSLogsGroup),
+									"awslogs-region": aws.String(taskDefinition.ContainerDefinitions[0].LogConfiguration.Options.AWSLogsRegion),
+									"awslogs-stream-prefix": aws.String(taskDefinition.ContainerDefinitions[0].LogConfiguration.Options.AWSLogsStreamPrefix),
+								},
+							},
+						},	
 					},
+			Cpu: aws.String(taskDefinition.Cpu),
+			EphemeralStorage: &ecs.EphemeralStorage{
+				SizeInGiB: aws.Int64(taskDefinition.EphemeralStorage.SizeInGiB),
 			},
-			Family:      aws.String("sleep360"),
-			TaskRoleArn: aws.String(""),
+			ExecutionRoleArn: aws.String(taskDefinition.ExecutionRoleARN),
+			Family:      aws.String(taskDefinition.Family),
+			Memory: aws.String(taskDefinition.Memory),
+			NetworkMode: aws.String(taskDefinition.NetworkMode),
+			PlacementConstraints: []*ecs.TaskDefinitionPlacementConstraint{},
+			RuntimePlatform: &ecs.RuntimePlatform{
+				CpuArchitecture: aws.String(taskDefinition.RuntimePlatform.CpuArchitecture),
+				OperatingSystemFamily: aws.String(taskDefinition.RuntimePlatform.OperatingSystemFamily),
+			},
 	}
 
 	result, err := svc.RegisterTaskDefinition(input)
