@@ -2,6 +2,7 @@ package main
 
 import (
 	"os"
+	"log"
 	"encoding/json"
 	"github.com/makotonakai/ecs-task-definition-resource/resource"
 )
@@ -14,7 +15,10 @@ type Response struct {
 func main() {
 	
 	response := Response{}
-	json.NewEncoder(os.Stdout).Encode(response)
+	err := json.NewEncoder(os.Stdout).Encode(response)
+	if err != nil {
+		log.Fatalln(err)
+	}
 
 }
 
