@@ -25,7 +25,7 @@ type TaskDefinision struct {
 type ContainerDefinition struct {
 	Name string `json:"name"`
 	Image string `json:"image"`
-	Cpu int `json:"Cpus"`
+	Cpu int64 `json:"Cpus"`
 	PortMappings []PortMapping `json:"portMappings"`
 	Essential bool `json:"essential"`
 	Environment []string `json:"environment"`
@@ -58,10 +58,10 @@ type LogConfig struct {
 
 type HealthCheckConfig struct {
 	Command []string `json:"command"`
-	Interval int `json:"interval"`
-	Timeout int `json:"timeout"`
-	Retries int `json:"retries"`
-	StartPeriod int `json:"startPeriod"`
+	Interval int64 `json:"interval"`
+	Timeout int64 `json:"timeout"`
+	Retries int64 `json:"retries"`
+	StartPeriod int64 `json:"startPeriod"`
 }
 
 type RequiresAttribute struct {
@@ -69,7 +69,7 @@ type RequiresAttribute struct {
 }
 
 type EphemeralStorageConfig struct {
-	SizeInGiB int `json:"sizeInGiB"`
+	SizeInGiB int64 `json:"sizeInGiB"`
 }
 
 type RuntimePlatformConfig struct {
