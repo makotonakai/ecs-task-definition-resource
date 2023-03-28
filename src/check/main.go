@@ -15,6 +15,7 @@ type Response struct {
 func main() {
 	
 	response := Response{}
+	response.Version = append(response.Version, resource.Version{Ref: "static"})
 	err := json.NewEncoder(os.Stdout).Encode(response)
 	if err != nil {
 		log.Fatalln(err)

@@ -90,6 +90,10 @@ func main() {
 			Memory: aws.String(taskDefinition.Memory),
 			NetworkMode: aws.String(taskDefinition.NetworkMode),
 			PlacementConstraints: []*ecs.TaskDefinitionPlacementConstraint{},
+			RequiresCompatibilities: []*string{
+				aws.String("EC2"), 
+				aws.String("FARGATE"),
+			},
 			RuntimePlatform: &ecs.RuntimePlatform{
 				CpuArchitecture: aws.String(taskDefinition.RuntimePlatform.CpuArchitecture),
 				OperatingSystemFamily: aws.String(taskDefinition.RuntimePlatform.OperatingSystemFamily),
