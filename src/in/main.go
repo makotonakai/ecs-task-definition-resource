@@ -31,7 +31,7 @@ func main() {
 	response := Response{}
 	response.Version = resource.Version{Ref: request.Version.Ref}
 
-	err := json.NewEncoder(os.Stdout).Encode(response)
+	err = json.NewEncoder(os.Stdout).Encode(response)
 	if err != nil {
 		log.Fatalln(err)
 	}
