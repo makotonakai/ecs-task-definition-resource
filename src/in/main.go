@@ -2,14 +2,15 @@ package main
 
 import (
 	"os"
+	"fmt"
 	"log"
 	"encoding/json"
 	"github.com/makotonakai/ecs-task-definition-resource/resource"
 )
 
-// type Request struct {
-// 	Version resource.Version `json:"version"`
-// }
+type Request struct {
+	Version resource.Version `json:"version"`
+}
 
 
 type Response struct {
